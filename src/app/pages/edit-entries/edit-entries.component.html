@@ -1,0 +1,21 @@
+<div class="delete-entry-container">
+  <div class="entry-container" *ngIf="entryService.foodEntries() as entries">
+    <button routerLink="/">Home</button>
+    <div
+      class="entry"
+      *ngFor="let food of entries | keyvalue"
+      [ngClass]="currentEditedEntry().name === food.key ? 'active' : ''"
+      (click)="editEntry(food.key)"
+    >
+      <h4
+        *ngIf="currentEditedEntry()?.name !== food.key"
+        [innerHTML]="entries[food.key].name"
+      ></h4>
+      <app-edit-entry
+        *ngIf="currentEditedEntry()?.name === food.key"
+        [entry]="currentEditedEntry()"
+      ></app-edit-entry>
+    </div>
+    <button routerLink="/">Home</button>
+  </div>
+</div>

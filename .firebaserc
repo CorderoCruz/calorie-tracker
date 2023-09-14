@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "get-fit-45e8d"
+  },
+  "targets": {
+    "get-fit-45e8d": {
+      "hosting": {
+        "calorie-counter": [
+          "get-fit-45e8d"
+        ]
+      }
+    }
+  }
+}
