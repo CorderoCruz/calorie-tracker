@@ -26,7 +26,7 @@ export class AddMealFormComponent {
     grams: ['', [Validators.required, isNumber()]],
   });
 
-  addCalories() {
+  updateMacros() {
     const { foodName, grams } = this.addMealForm.getRawValue();
     const numberGrams: number = parseInt(grams);
     if (!foodName) return alert('No food provided');

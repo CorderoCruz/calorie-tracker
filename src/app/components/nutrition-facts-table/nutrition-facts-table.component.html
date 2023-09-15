@@ -1,8 +1,4 @@
-<div
-  class="nutrition-container"
-  *ngIf="macroService.totalNutrition() as food"
-  [ngStyle]="{ width: width + '%' }"
->
+<div class="nutrition-container" *ngIf="macroService.totalNutrition() as food">
   <div *ngIf="!macroService.macrosLoading(); else loading">
     <h2>Total Nutrition Facts</h2>
     <section class="calorie-section">

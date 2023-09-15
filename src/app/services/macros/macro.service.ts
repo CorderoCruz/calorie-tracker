@@ -24,20 +24,20 @@ import {
   providedIn: 'root',
 })
 export class MacroService {
-  constructor() {}
+  private db = inject<Database>(Database);
+  private entryService = inject<EntryService>(EntryService);
 
-  private db: Database = inject(Database);
-  private entryService: EntryService = inject(EntryService);
+  public readonly macrosURL: string = 'foods/macros-today';
+  public readonly macroRef: DatabaseReference = ref(this.db, this.macrosURL);
 
-  public macrosURL: string = 'foods/macros-today';
-  public macroRef: DatabaseReference = ref(this.db, this.macrosURL);
+  private calories = signal<number>(0);
+  private fat = signal<number>(0);
+  private carbs = signal<number>(0);
+  private protein = signal<number>(0);
 
-  private calories: WritableSignal<number> = signal(0);
-  private fat: WritableSignal<number> = signal(0);
-  private carbs: WritableSignal<number> = signal(0);
-  private protein: WritableSignal<number> = signal(0);
+  public readonly macrosLoading = signal<boolean>(false);
 
-  public totalNutrition: Signal<Macros> = computed<Macros>(() => ({
+  public readonly totalNutrition: Signal<Macros> = computed<Macros>(() => ({
     calories: this.calories(),
     fat: this.fat(),
     carbs: this.carbs(),
@@ -72,17 +72,15 @@ export class MacroService {
     this.fat.update((val) => val + fat);
     this.carbs.update((val) => val + carbs);
     this.protein.update((val) => val + protein);
-    this.updateTodaysMacrosToDB(date);
+    this.updateMacrosToDB(date);
   }
 
   // change this into a put instead of a post
-  async updateTodaysMacrosToDB(date: string): Promise<void> {
+  private async updateMacrosToDB(date: string): Promise<void> {
     const reference: DatabaseReference = ref(
       this.db,
       `${this.macrosURL}/${date}`
     );
     set(reference, { ...this.totalNutrition(), date });
   }
-
-  macrosLoading = signal<boolean>(false);
 }

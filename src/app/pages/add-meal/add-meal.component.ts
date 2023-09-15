@@ -20,6 +20,7 @@ export class AddMealComponent implements OnInit {
     grams: ['', [Validators.required, isNumber()]],
   });
 
+  // formating the todays date to make the value of date input
   macroDate: string = `${Utils.date.getFullYear()}-${
     (Utils.date.getMonth() + 1).toString().length === 1
       ? '0' + (Utils.date.getMonth() + 1)
@@ -30,7 +31,7 @@ export class AddMealComponent implements OnInit {
     this.macroService.getMacros(Utils.formatInputDate(this.macroDate));
   }
 
-  addCalories({ foodName, grams }: { foodName: string; grams: number }) {
+  updateMacros({ foodName, grams }: { foodName: string; grams: number }) {
     this.macroService.updateMacros(
       grams,
       foodName,

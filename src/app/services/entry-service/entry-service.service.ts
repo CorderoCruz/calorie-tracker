@@ -1,11 +1,4 @@
-import {
-  Injectable,
-  Signal,
-  WritableSignal,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import {
   Database,
   set,
@@ -23,14 +16,12 @@ import { Entry } from '@interfaces';
   providedIn: 'root',
 })
 export class EntryService {
-  constructor() {}
+  private readonly db = inject<Database>(Database);
 
-  private db: Database = inject(Database);
+  public readonly entriesURL: string = 'foods/entries';
+  public readonly entriesRef: DatabaseReference = ref(this.db, this.entriesURL);
 
-  public entriesURL: string = 'foods/entries';
-  public entriesRef: DatabaseReference = ref(this.db, this.entriesURL);
-
-  public foodEntries: WritableSignal<Entry[]> = signal([]);
+  public foodEntries = signal<Entry[]>([]);
 
   public getEntries(): void {
     onValue(this.entriesRef, (snapshot: DataSnapshot) => {
@@ -41,17 +32,16 @@ export class EntryService {
 
   public async addEntryToDB(food: Entry): Promise<void> {
     const entry: DataSnapshot = await get(
-      child(ref(this.db), `foods/entries/${food.name}`)
+      child(ref(this.db), `${this.entriesURL}/${food.name}`)
     );
     if (entry.exists()) {
       const userResponse: boolean = confirm(
-        'Name already exists, do you want to override it?'
+        'Entry already exists, do you want to override it?'
       );
       if (!userResponse) return;
     }
 
-    const foodListRef: DatabaseReference = ref(this.db);
-    set(child(foodListRef, `${this.entriesURL}/${food.name}`), food);
+    set(child(ref(this.db), `${this.entriesURL}/${food.name}`), food);
   }
 
   async updateEntryToDB(updatedEntry: Entry): Promise<void> {

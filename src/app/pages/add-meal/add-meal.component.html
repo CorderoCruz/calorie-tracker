@@ -6,9 +6,9 @@
       <input type="date" [(ngModel)]="macroDate" (input)="changeDate()" />
     </div>
   </div>
-  <add-meal-form (outputNameAndGrams)="addCalories($event)"></add-meal-form>
+  <add-meal-form (outputNameAndGrams)="updateMacros($event)"></add-meal-form>
   <div class="total-container">
-    <nutrition-facts-table [width]="50"></nutrition-facts-table>
+    <nutrition-facts-table></nutrition-facts-table>
   </div>
 
   <button routerLink="/">Home</button>
