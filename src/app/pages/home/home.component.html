@@ -1,5 +1,7 @@
 <div class="button-container">
-  <button routerLink="/add-food">Create Entry</button>
-  <button routerLink="/add-meal">Add Meal</button>
-  <button routerLink="/edit-entries">Edit Entries</button>
+  <button
+    *ngFor="let link of links"
+    [routerLink]="link.link"
+    [innerHTML]="link.content | uppercase"
+  ></button>
 </div>

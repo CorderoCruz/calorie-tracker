@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Entry } from '@interfaces';
 import { EntryService } from 'src/app/services/entry-service/entry-service.service';
 
@@ -11,7 +10,7 @@ import { EntryService } from 'src/app/services/entry-service/entry-service.servi
 export class AddEntryComponent {
   entryService: EntryService = inject(EntryService);
 
-  addEntryToDB(event: Entry): void {
+  public addEntryToDB(event: Entry): void {
     this.entryService.addEntryToDB({ ...event });
   }
 }

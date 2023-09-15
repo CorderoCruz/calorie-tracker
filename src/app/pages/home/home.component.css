@@ -1,0 +1,17 @@
+.button-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+  gap: 30px;
+  justify-content: center;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  background-color: white;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+}

@@ -6,7 +6,7 @@ import { NotFoundComponent } from '../pages/not-found/not-found.component';
 import { AddMealComponent } from '../pages/add-meal/add-meal.component';
 import { AddEntryComponent } from '../pages/add-entry/add-entry.component';
 import { EditEntriesComponent } from '../pages/edit-entries/edit-entries.component';
-import { EditEntryComponent } from '../pages/edit-entry/edit-entry.component';
+import { EditEntryComponent } from '../components/edit-entry/edit-entry.component';
 
 const routes: Routes = [
   {
@@ -18,7 +18,7 @@ const routes: Routes = [
     component: AddMealComponent,
   },
   {
-    path: 'add-food',
+    path: 'create-entry',
     component: AddEntryComponent,
   },
   {
