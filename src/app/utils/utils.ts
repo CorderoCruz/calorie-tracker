@@ -16,17 +16,33 @@ export class Utils {
     return macros;
   }
 
+  public static date: Date = new Date();
+
   public static getTodaysDate(): string {
     const date: Date = new Date();
-    const day: string = this.formatDate(date.getDate());
-    const month: string = this.formatDate(date.getMonth() + 1);
+    const day: string = this.formatDate(date.getDate().toString());
+    const month: string = this.formatDate((date.getMonth() + 1).toString());
     const year: number = date.getFullYear();
     return `${month}-${day}-${year}`;
   }
 
-  public static formatDate(date: number): string {
+  public static formatDate(date: string): string {
     return date.toString().startsWith('0')
       ? date.toString().split('')[1]
       : date.toString();
+  }
+
+  //input the date and format it ""THATS IT!
+  public static formatInputDate(date: string): string {
+    let monthAndDay: Array<string> = date.split('-');
+
+    for (let i: number = 0; i < monthAndDay.length; i++) {
+      if (monthAndDay[i].startsWith('0')) {
+        monthAndDay[i] = monthAndDay[i].split('')[1];
+      }
+    }
+
+    const year: Array<string> = monthAndDay.splice(0, 1);
+    return this.formatDate(monthAndDay.concat(year).join('-'));
   }
 }

@@ -14,6 +14,8 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { AddEntryComponent } from './pages/add-entry/add-entry.component';
 import { EditEntryComponent } from './pages/edit-entry/edit-entry.component';
 import { EditEntriesComponent } from './pages/edit-entries/edit-entries.component';
+import { AddMealFormComponent } from './components/add-meal-form/add-meal-form.component';
+import { AddEntryFormComponent } from './components/add-entry-form/add-entry-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { EditEntriesComponent } from './pages/edit-entries/edit-entries.componen
     AddEntryComponent,
     EditEntryComponent,
     EditEntriesComponent,
+    AddMealFormComponent,
+    AddEntryFormComponent,
   ],
   imports: [
     BrowserModule,

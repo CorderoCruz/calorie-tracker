@@ -12,7 +12,7 @@ import { EntryService } from 'src/app/services/entry-service/entry-service.servi
 })
 export class EditEntryComponent implements OnInit {
   @Input('entry') entry: Entry | undefined;
-  route: ActivatedRoute = inject(ActivatedRoute);
+  route = inject<ActivatedRoute>(ActivatedRoute);
   router: Router = inject(Router);
   entryService: EntryService = inject(EntryService);
   fb: FormBuilder = inject(FormBuilder);

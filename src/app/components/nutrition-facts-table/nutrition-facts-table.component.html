@@ -1,23 +1,27 @@
-<div
-  class="nutrition-container"
-  *ngIf="macroService.totalNutrition() as food"
-  [ngStyle]="{ width: width + '%' }"
->
-  <h2>Total Nutrition Facts</h2>
-  <section class="calorie-section">
-    <h2>Calories</h2>
-    <h2>{{ food.calories }}</h2>
-  </section>
-  <section>
-    <h5>Fat per serving</h5>
-    <h5>{{ food.fat }}g</h5>
-  </section>
-  <section>
-    <h5>Carbs per serving</h5>
-    <h5>{{ food.carbs }}g</h5>
-  </section>
-  <section>
-    <h5>Protein per serving</h5>
-    <h5>{{ food.protein }}g</h5>
-  </section>
+<div class="nutrition-container" *ngIf="macroService.totalNutrition() as food">
+  <div *ngIf="!macroService.macrosLoading(); else loading">
+    <h2>Total Nutrition Facts</h2>
+    <section class="calorie-section">
+      <h2>Calories</h2>
+      <h2>{{ food.calories }}</h2>
+    </section>
+    <section>
+      <h5>Fat per serving</h5>
+      <h5>{{ food.fat }}g</h5>
+    </section>
+    <section>
+      <h5>Carbs per serving</h5>
+      <h5>{{ food.carbs }}g</h5>
+    </section>
+    <section>
+      <h5>Protein per serving</h5>
+      <h5>{{ food.protein }}g</h5>
+    </section>
+  </div>
+
+  <ng-template #loading>
+    <div class="center">
+      <div class="lds-dual-ring"></div>
+    </div>
+  </ng-template>
 </div>

@@ -1,7 +1,7 @@
 .nutrition-container {
   padding: 0px 5px 5px 5px;
   gap: 5px;
-  border: 3px solid rgba(0, 0, 0, 0.555);
+  box-shadow: 0px 0px 2px 2px rgb(0, 0, 0);
   min-width: 280px;
 }
 
@@ -28,9 +28,11 @@ label {
 }
 
 input {
-  height: 100%;
-  font-weight: bolder;
-  padding-left: 5px;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.253);
+  border-radius: 2px;
 }
 
 section {
@@ -39,4 +41,13 @@ section {
   padding: 0 5px;
   padding: 5px;
   border-bottom: 2px solid black;
+}
+
+.change-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  width: 100%;
 }
