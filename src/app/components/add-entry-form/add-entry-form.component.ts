@@ -15,8 +15,8 @@ export class AddEntryFormComponent {
   entryService = inject<EntryService>(EntryService);
 
   addEntryForm: FormGroup = this.fb.group({
-    foodName: ['', [Validators.required]],
-    gramsPerServing: ['', [Validators.required]],
+    name: ['', [Validators.required]],
+    grams: ['', [Validators.required]],
     calories: ['', [Validators.required]],
     fat: ['', [Validators.required]],
     carbs: ['', [Validators.required]],

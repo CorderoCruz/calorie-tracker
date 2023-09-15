@@ -4,6 +4,7 @@
 :root {
   --shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
   --main-page-color: rgb(240, 240, 240);
+  --add-color: rgb(159, 221, 159);
 }
 
 * {

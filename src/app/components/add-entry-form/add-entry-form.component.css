@@ -1,1 +1,37 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 320px;
+}
 
+header {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-left: 5px;
+}
+
+input {
+  width: 100%;
+  margin-top: 5px;
+  border: none;
+  box-shadow: var(--shadow);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  font-weight: bolder;
+  box-shadow: var(--shadow);
+  background-color: var(--add-color);
+  border-radius: 5px;
+}

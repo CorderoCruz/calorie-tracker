@@ -1,31 +1,15 @@
 <form [formGroup]="addEntryForm">
-  <h2>Add Entry</h2>
-  <p>** All Entries all per serving size</p>
-  <div class="input">
-    <label for="name">Food Entry Name</label>
-    <input type="digit" formControlName="foodName" />
-  </div>
-  <div class="input">
-    <label for="gramsPerServing">Grams</label>
-    <input type="digit" formControlName="gramsPerServing" />
-  </div>
-  <div class="input">
-    <label for="gramsPerServing">Calories</label>
-    <input type="digit" formControlName="calories" />
-  </div>
-  <div class="input">
-    <label for="gramsPerServing">Fats</label>
-    <input type="digit" formControlName="fat" />
-  </div>
-  <div class="input">
-    <label for="gramsPerServing">Carbs</label>
-    <input type="digit" formControlName="carbs" />
-  </div>
-  <div class="input">
-    <label for="gramsPerServing">Protein</label>
-    <input type="digit" formControlName="protein" />
+  <header>
+    <h2>Add Entry</h2>
+    <p>** All Entries all per serving size</p>
+  </header>
+  <div *ngFor="let input of addEntryForm?.controls | keyvalue" class="input">
+    <label for="{{ input.key }}">
+      {{ input.key.charAt(0).toUpperCase() + input.key.slice(1) }}</label
+    >
+    <input type="digit" formControlName="{{ input.key }}" />
   </div>
   <button [disabled]="addEntryForm.errors" (click)="addFoodToDB()">
-    Add Calories
+    ADD CALORIES
   </button>
 </form>
