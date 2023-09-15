@@ -20,29 +20,18 @@ export class AddEntryComponent {
     protein: ['', [Validators.required]],
   });
 
-  addFoodToDB() {
-    const { foodName, gramsPerServing, calories, fat, carbs, protein } =
-      this.addFoodForm.getRawValue();
+  addFoodToDB(event) {
+    const { foodName, gramsPerServing, calories, fat, carbs, protein } = event;
 
-    if (
-      !foodName ||
-      !gramsPerServing ||
-      !calories ||
-      !fat ||
-      !carbs ||
-      !protein
-    ) {
-      alert('Not all fields are valid');
-      return;
-    }
+    console.log(event);
 
-    this.entryService.addEntryToDB({
-      name: foodName,
-      gramsPerServing: parseInt(gramsPerServing),
-      calories: parseInt(calories),
-      fat: parseInt(fat),
-      carbs: parseInt(carbs),
-      protein: parseInt(protein),
-    });
+    // this.entryService.addEntryToDB({
+    //   name: foodName,
+    //   gramsPerServing: parseInt(gramsPerServing),
+    //   calories: parseInt(calories),
+    //   fat: parseInt(fat),
+    //   carbs: parseInt(carbs),
+    //   protein: parseInt(protein),
+    // });
   }
 }
