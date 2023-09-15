@@ -12,6 +12,5 @@ export class AppComponent implements OnInit {
   macroService: MacroService = inject(MacroService);
   ngOnInit(): void {
     this.entryService.getEntries();
-    this.macroService.getTodaysTotal();
   }
 }

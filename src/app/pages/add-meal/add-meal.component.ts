@@ -4,51 +4,41 @@ import { isNumber } from './validators';
 import { MacroService } from 'src/app/services/macros/macro.service';
 import { EntryService } from 'src/app/services/entry-service/entry-service.service';
 import { Utils } from 'src/app/utils/utils';
-import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-calorie-input',
   templateUrl: './add-meal.component.html',
   styleUrls: ['./add-meal.component.css'],
 })
-export class AddMealComponent {
+export class AddMealComponent implements OnInit {
   fb: FormBuilder = inject(FormBuilder);
-  macroService: MacroService = inject(MacroService);
-  entryService: EntryService = inject(EntryService);
+  macroService = inject<MacroService>(MacroService);
+  entryService = inject<EntryService>(EntryService);
 
   addMealForm: FormGroup = this.fb.group({
-    date: ['', [Validators.required]],
     foodName: ['', [Validators.required]],
     grams: ['', [Validators.required, isNumber()]],
   });
 
-  addCalories() {
-    const { date, foodName, grams } = this.addMealForm.getRawValue();
-    const numberGrams: number = parseInt(grams);
-    if (!foodName) return alert('No food provided');
-    if (!numberGrams) return alert('Not valid inputs');
+  macroDate: string = `${Utils.date.getFullYear()}-${
+    (Utils.date.getMonth() + 1).toString().length === 1
+      ? '0' + (Utils.date.getMonth() + 1)
+      : Utils.date.getMonth() + 1
+  }-${Utils.date.getDate()}`;
 
-    let returnedDate: string = date;
+  changeDate() {
+    this.macroService.getMacros(Utils.formatInputDate(this.macroDate));
+  }
 
-    if (returnedDate) {
-      let monthAndDay: Array<string> = (date as string).split('-');
+  addCalories({ foodName, grams }: { foodName: string; grams: number }) {
+    this.macroService.updateMacros(
+      grams,
+      foodName,
+      Utils.formatInputDate(this.macroDate)
+    );
+  }
 
-      for (let i: number = 0; i < monthAndDay.length; i++) {
-        if (monthAndDay[i].startsWith('0')) {
-          monthAndDay[i] = monthAndDay[i].split('')[1];
-        }
-      }
-
-      const year: Array<string> = monthAndDay.splice(0, 1);
-      returnedDate = monthAndDay.concat(year).join('-');
-    } else {
-      returnedDate = Utils.getTodaysDate();
-    }
-
-    if (returnedDate !== Utils.getTodaysDate()) {
-      this.macroService.updateFutureMacros(numberGrams, foodName, returnedDate);
-    }
-
-    this.macroService.updateMacros(numberGrams, foodName, returnedDate);
+  ngOnInit() {
+    this.macroService.getMacros(Utils.formatInputDate(this.macroDate));
   }
 }

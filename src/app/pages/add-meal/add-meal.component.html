@@ -1,27 +1,12 @@
 <div class="add-calorie-container">
-  <form [formGroup]="addMealForm">
+  <div class="heading">
     <h2>Add Meal</h2>
     <div class="input">
       <label for="date">Date for Entry</label>
-      <input type="date" formControlName="date" />
+      <input type="date" [(ngModel)]="macroDate" (input)="changeDate()" />
     </div>
-    <div class="input">
-      <label for="calories">Choose Food</label>
-      <select formControlName="foodName">
-        <option disabled selected>Choose Food</option>
-        <option
-          *ngFor="let food of entryService.foodEntries() | keyvalue"
-          [value]="entryService.foodEntries()[food.key].name"
-          [innerHTML]="entryService.foodEntries()[food.key].name"
-        ></option>
-      </select>
-    </div>
-    <div class="input">
-      <label for="calories">Grams</label>
-      <input type="digit" formControlName="grams" />
-    </div>
-    <button (click)="addCalories()">Add Calories</button>
-  </form>
+  </div>
+  <add-meal-form (outputNameAndGrams)="addCalories($event)"></add-meal-form>
   <div class="total-container">
     <nutrition-facts-table [width]="50"></nutrition-facts-table>
   </div>
