@@ -1,0 +1,23 @@
+.add-meal-container {
+  display: flex;
+  padding: 10%;
+  gap: 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+mat-form-field {
+  width: 320px;
+  border-radius: 5px;
+}
+
+button {
+  background-color: black;
+  width: 320px;
+  color: white;
+}

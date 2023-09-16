@@ -1,33 +1,24 @@
-import {
-  Injectable,
-  Signal,
-  WritableSignal,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
-import { Entry, Macros } from '@interfaces';
-import { EntryService } from '../entry-service/entry-service.service';
-import { Utils } from 'src/app/utils/utils';
+import { Injectable, Signal, computed, inject, signal } from "@angular/core";
+import { Entry, Macros } from "@interfaces";
+import { EntryService } from "../entry-service/entry-service.service";
+import { Utils } from "src/app/utils/utils";
 import {
   DataSnapshot,
   Database,
   DatabaseReference,
-  child,
-  get,
   onValue,
   ref,
   set,
-} from '@angular/fire/database';
+} from "@angular/fire/database";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class MacroService {
   private db = inject<Database>(Database);
   private entryService = inject<EntryService>(EntryService);
 
-  public readonly macrosURL: string = 'foods/macros-today';
+  public readonly macrosURL: string = "foods/macros-today";
   public readonly macroRef: DatabaseReference = ref(this.db, this.macrosURL);
 
   private calories = signal<number>(0);
@@ -44,12 +35,13 @@ export class MacroService {
     protein: this.protein(),
   }));
 
+  //get
   public async getMacros(date: string): Promise<void> {
     this.macrosLoading.set(true);
     onValue(this.macroRef, (snapshot: DataSnapshot) => {
       const macros: Macros = snapshot.val()[date];
       if (!macros) {
-        alert('Macros do not exist for inputed date');
+        alert("Macros do not exist for inputed date");
         return;
       }
       this.calories.set(macros.calories);
@@ -61,6 +53,7 @@ export class MacroService {
     this.macrosLoading.set(false);
   }
 
+  //put
   public updateMacros(grams: number, foodName: string, date: string): void {
     const food: Entry = this.entryService.foodEntries()[foodName];
     const { calories, fat, carbs, protein } = Utils.calculateMacros(

@@ -1,18 +1,23 @@
 <form [formGroup]="addMealForm">
   <div class="input">
-    <label for="calories">Choose Food</label>
-    <select formControlName="foodName">
-      <option disabled selected>Choose Food</option>
-      <option
-        *ngFor="let food of entryService.foodEntries() | keyvalue"
-        [value]="entryService.foodEntries()[food.key].name"
-        [innerHTML]="entryService.foodEntries()[food.key].name"
-      ></option>
-    </select>
+    <mat-form-field>
+      <mat-label>Food</mat-label>
+      <mat-select formControlName="foodName">
+        <mat-option
+          *ngFor="let food of entryService.foodEntries() | keyvalue"
+          [value]="entryService.foodEntries()[food.key].name"
+          >{{ entryService.foodEntries()[food.key].name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
   </div>
   <div class="input">
-    <label for="calories">Grams</label>
-    <input type="digit" formControlName="grams" />
+    <mat-form-field>
+      <mat-label>Grams</mat-label>
+      <input matInput />
+    </mat-form-field>
   </div>
-  <button (click)="updateMacros()">Add Calories</button>
+  <button mat-flat-button color="accent" (click)="updateMacros()">
+    <p>UPDATE MACROS</p>
+  </button>
 </form>

@@ -1,4 +1,4 @@
-import { Entry, Macros } from '@interfaces';
+import { Entry, Macros } from "@interfaces";
 
 export class Utils {
   public static calculateMacros(grams: number, food: Entry): Macros {
@@ -27,22 +27,21 @@ export class Utils {
   }
 
   public static formatDate(date: string): string {
-    return date.toString().startsWith('0')
-      ? date.toString().split('')[1]
+    return date.toString().startsWith("0")
+      ? date.toString().split("")[1]
       : date.toString();
   }
 
   //input the date and format it ""THATS IT!
   public static formatInputDate(date: string): string {
-    let monthAndDay: Array<string> = date.split('-');
-
+    let monthAndDay: Array<string> = date.split("-");
     for (let i: number = 0; i < monthAndDay.length; i++) {
-      if (monthAndDay[i].startsWith('0')) {
-        monthAndDay[i] = monthAndDay[i].split('')[1];
+      if (monthAndDay[i].startsWith("0")) {
+        monthAndDay[i] = monthAndDay[i].slice(1);
       }
     }
 
     const year: Array<string> = monthAndDay.splice(0, 1);
-    return this.formatDate(monthAndDay.concat(year).join('-'));
+    return this.formatDate(monthAndDay.concat(year).join("-"));
   }
 }

@@ -1,0 +1,8 @@
+<form [formGroup]="editEntryForm">
+  <mat-form-field *ngFor="let input of editEntryForm?.controls | keyvalue">
+    <mat-label>{{
+      input.key.charAt(0).toUpperCase() + input.key.slice(1)
+    }}</mat-label>
+    <input type="text" matInput formControlName="{{ input.key }}" />
+  </mat-form-field>
+</form>

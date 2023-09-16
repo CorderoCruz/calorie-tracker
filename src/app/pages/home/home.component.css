@@ -4,12 +4,12 @@
   padding: 10%;
   gap: 30px;
   justify-content: center;
+  align-items: center;
 }
 
 button {
-  padding: 10px 20px;
+  width: 320px;
   border: none;
-  box-shadow: var(--shadow);
   border-radius: 5px;
   background-color: white;
   color: rgb(0, 0, 0);

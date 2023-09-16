@@ -1,15 +1,29 @@
-<div class="add-calorie-container">
-  <div class="heading">
-    <h2>Add Meal</h2>
-    <div class="input">
-      <label for="date">Date for Entry</label>
-      <input type="date" [(ngModel)]="macroDate" (input)="changeDate()" />
-    </div>
+<div class="add-meal-container">
+  <h2>Add Meal</h2>
+  <div class="input">
+    <!-- <label for="date">Meal Date</label>
+    <input type="date" [value]="defaultDate" (change)="changeDate($event)" /> -->
+    <mat-form-field appearance="fill">
+      <mat-datepicker></mat-datepicker>
+      <mat-label>mm/dd/yyyy</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        (focus)="picker.open()"
+        readonly
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
   </div>
   <add-meal-form (outputNameAndGrams)="updateMacros($event)"></add-meal-form>
   <div class="total-container">
-    <nutrition-facts-table></nutrition-facts-table>
+    <nutrition-facts-table
+      [date]="formatedMacroDate() ? formatedMacroDate() : formatedDefaultDate"
+    ></nutrition-facts-table>
   </div>
-
-  <button routerLink="/">Home</button>
+  <home-button></home-button>
 </div>

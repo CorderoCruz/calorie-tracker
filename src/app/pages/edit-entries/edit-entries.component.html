@@ -1,21 +1,21 @@
-<div class="delete-entry-container">
-  <div class="entry-container" *ngIf="entryService.foodEntries() as entries">
-    <button routerLink="/">Home</button>
-    <div
-      class="entry"
-      *ngFor="let food of entries | keyvalue"
-      [ngClass]="currentEditedEntry().name === food.key ? 'active' : ''"
-      (click)="editEntry(food.key)"
-    >
-      <h4
-        *ngIf="currentEditedEntry()?.name !== food.key"
-        [innerHTML]="entries[food.key].name"
-      ></h4>
-      <app-edit-entry
-        *ngIf="currentEditedEntry()?.name === food.key"
-        [entry]="currentEditedEntry()"
-      ></app-edit-entry>
-    </div>
-    <button routerLink="/">Home</button>
+<div class="entries-container">
+  <h3>Click on entry to edit</h3>
+  <div class="entries">
+    <mat-accordion>
+      <mat-expansion-panel
+        *ngFor="let entry of entryService.foodEntries() | keyvalue"
+        (click)="editEntry(entry.key)"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> {{ entry.key }} </mat-panel-title>
+        </mat-expansion-panel-header>
+        <edit-entry-form [entry]="currentEditedEntry()"></edit-entry-form>
+        <div class="button-container">
+          <button mat-raised-button color="warn">DELETE ENTRY</button>
+          <button mat-raised-button color="accent">EDIT ENTRY</button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
+  <home-button></home-button>
 </div>

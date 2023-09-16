@@ -1,36 +1,36 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../pages/home/home.component';
-import { NotFoundComponent } from '../pages/not-found/not-found.component';
-import { AddMealComponent } from '../pages/add-meal/add-meal.component';
-import { AddEntryComponent } from '../pages/add-entry/add-entry.component';
-import { EditEntriesComponent } from '../pages/edit-entries/edit-entries.component';
-import { EditEntryComponent } from '../components/edit-entry/edit-entry.component';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule, Routes } from "@angular/router";
+import { HomeComponent } from "../pages/home/home.component";
+import { NotFoundComponent } from "../pages/not-found/not-found.component";
+import { AddMealComponent } from "../pages/add-meal/add-meal.component";
+import { AddEntryComponent } from "../pages/add-entry/add-entry.component";
+import { EditEntriesComponent } from "../pages/edit-entries/edit-entries.component";
+import { EditEntryComponent } from "../components/edit-entry-form/edit-entry-form.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: HomeComponent,
   },
   {
-    path: 'add-meal',
+    path: "add-meal",
     component: AddMealComponent,
   },
   {
-    path: 'create-entry',
+    path: "create-entry",
     component: AddEntryComponent,
   },
   {
-    path: 'edit-entries',
+    path: "edit-entries",
     component: EditEntriesComponent,
   },
   {
-    path: 'edit-entry/:entryname',
+    path: "edit-entry/:entryname",
     component: EditEntryComponent,
   },
   {
-    path: '**',
+    path: "**",
     component: NotFoundComponent,
   },
 ];

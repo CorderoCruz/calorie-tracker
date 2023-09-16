@@ -6,13 +6,3 @@
   flex-direction: column;
   gap: 20px;
 }
-
-button {
-  width: 320px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-  font-weight: bolder;
-}

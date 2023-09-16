@@ -1,16 +1,14 @@
-import { Component, Input, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { Entry } from '@interfaces';
-import { EntryService } from 'src/app/services/entry-service/entry-service.service';
+import { Component, Input, inject, signal } from "@angular/core";
+import { Router } from "@angular/router";
+import { Entry } from "@interfaces";
+import { EntryService } from "src/app/services/entry-service/entry-service.service";
 
 @Component({
-  selector: 'app-edit-entries',
-  templateUrl: './edit-entries.component.html',
-  styleUrls: ['./edit-entries.component.css'],
+  selector: "app-edit-entries",
+  templateUrl: "./edit-entries.component.html",
+  styleUrls: ["./edit-entries.component.css"],
 })
 export class EditEntriesComponent {
-  @Input('entry') entry: string;
-
   entryService: EntryService = inject(EntryService);
   router: Router = inject(Router);
 
