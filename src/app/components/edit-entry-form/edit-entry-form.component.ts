@@ -9,35 +9,48 @@ import { EntryService } from "src/app/services/entry-service/entry-service.servi
   styleUrls: ["./edit-entry-form.component.css"],
 })
 export class EditEntryFormComponent implements OnInit {
-  @Input("entry") entry: Entry | undefined;
+  @Input("entry") entry: Entry;
   entryService: EntryService = inject(EntryService);
   fb: FormBuilder = inject(FormBuilder);
 
   editEntryForm: FormGroup = this.fb.group({
     name: [""],
-    grams: [""],
+    gramsPerServing: [""],
     calories: [""],
     fat: [""],
     carbs: [""],
     protein: [""],
   });
 
-  // needs work
-  editEntry(entryName: string | undefined): void {
-    const { foodName, gramsPerServing, calories, fat, carbs, protein } =
-      this.editEntryForm.getRawValue();
-    this.entryService.updateEntryToDB({
-      name: foodName,
-      gramsPerServing,
-      calories,
-      fat,
-      carbs,
-      protein,
-    });
+  editEntry(): void {
+    const editedEntry = {} as Entry;
+
+    //if the input is not filled in then we sub it in for the origial value
+    for (let macro in this.editEntryForm.controls) {
+      const macroValue: string = this.editEntryForm.getRawValue()[macro];
+      if (macroValue === "") {
+        editedEntry[macro] = this.entry[macro];
+      } else {
+        editedEntry[macro] = macroValue;
+      }
+    }
+
+    //parsing to number
+    for (let macro in editedEntry) {
+      if (macro !== "name") {
+        editedEntry[macro] = parseInt(editedEntry[macro]);
+      }
+    }
+
+    this.entryService.updateEntryToDB(editedEntry);
   }
 
-  deleteEntry(entryName: string | undefined) {
-    this.entryService.deleteEntryFromDB(entryName as string);
+  deleteEntry() {
+    const userResponse: boolean = confirm(
+      "Are you sure you want to remove this entry?"
+    );
+
+    userResponse ? this.entryService.deleteEntryFromDB(this.entry.name) : "";
   }
 
   ngOnInit() {}

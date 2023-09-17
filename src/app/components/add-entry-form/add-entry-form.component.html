@@ -5,9 +5,17 @@
   </header>
   <mat-form-field *ngFor="let input of addEntryForm?.controls | keyvalue">
     <mat-label>{{
-      input.key.charAt(0).toUpperCase() + input.key.slice(1) + " per serving"
+      input.key === "name"
+        ? input.key.charAt(0).toUpperCase() + input.key.slice(1)
+        : input.key.charAt(0).toUpperCase() +
+          input.key.slice(1) +
+          " per serving"
     }}</mat-label>
-    <input matInput type="number" formControlName="{{ input.key }}" />
+    <input
+      matInput
+      [type]="input.key === 'name' ? 'text' : 'number'"
+      formControlName="{{ input.key }}"
+    />
     <mat-error>Please input {{ input.key }}</mat-error>
   </mat-form-field>
   <button

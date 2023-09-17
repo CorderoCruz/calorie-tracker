@@ -7,11 +7,11 @@
   gap: 20px;
 }
 
-.button-container {
-  display: flex;
-  justify-content: space-between;
-}
-
 .entries {
   width: 320px;
+}
+
+button {
+  width: 320px;
+  font-weight: bolder;
 }

@@ -1,8 +1,29 @@
 <form [formGroup]="editEntryForm">
   <mat-form-field *ngFor="let input of editEntryForm?.controls | keyvalue">
     <mat-label>{{
-      input.key.charAt(0).toUpperCase() + input.key.slice(1)
+      input.key === "gramsPerServing"
+        ? "Grams per serving"
+        : input.key.charAt(0).toUpperCase() +
+          input.key.slice(1) +
+          (input.key === "name" ? "" : " per serving")
     }}</mat-label>
-    <input type="text" matInput formControlName="{{ input.key }}" />
+    <input
+      [type]="input.key === 'name' ? 'text' : 'number'"
+      matInput
+      formControlName="{{ input.key }}"
+    />
+    <label>{{
+      input.key === "name"
+        ? entry[input.key]
+        : "Current value: " + entry[input.key]
+    }}</label>
   </mat-form-field>
+  <div class="button-container">
+    <button mat-raised-button color="warn" (click)="deleteEntry()">
+      DELETE ENTRY
+    </button>
+    <button mat-raised-button color="accent" (click)="editEntry()">
+      EDIT ENTRY
+    </button>
+  </div>
 </form>

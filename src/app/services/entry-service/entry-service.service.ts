@@ -1,4 +1,4 @@
-import { Injectable, WritableSignal, inject, signal } from '@angular/core';
+import { Injectable, WritableSignal, inject, signal } from "@angular/core";
 import {
   Database,
   set,
@@ -9,16 +9,16 @@ import {
   DataSnapshot,
   child,
   DatabaseReference,
-} from '@angular/fire/database';
-import { Entry } from '@interfaces';
+} from "@angular/fire/database";
+import { Entry } from "@interfaces";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class EntryService {
   private readonly db = inject<Database>(Database);
 
-  public readonly entriesURL: string = 'foods/entries';
+  public readonly entriesURL: string = "foods/entries";
   public readonly entriesRef: DatabaseReference = ref(this.db, this.entriesURL);
 
   public foodEntries = signal<Entry[]>([]);
@@ -36,7 +36,7 @@ export class EntryService {
     );
     if (entry.exists()) {
       const userResponse: boolean = confirm(
-        'Entry already exists, do you want to override it?'
+        "Entry already exists, do you want to override it?"
       );
       if (!userResponse) return;
     }
@@ -47,7 +47,7 @@ export class EntryService {
   async updateEntryToDB(updatedEntry: Entry): Promise<void> {
     const reference: DatabaseReference = ref(
       this.db,
-      `${this.entriesRef}/${updatedEntry.name}`
+      `${this.entriesRef}/${updatedEntry.name.replaceAll(" ", "%20")}`
     );
     set(reference, { ...updatedEntry });
   }

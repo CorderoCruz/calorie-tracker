@@ -4,18 +4,17 @@
     <mat-accordion>
       <mat-expansion-panel
         *ngFor="let entry of entryService.foodEntries() | keyvalue"
-        (click)="editEntry(entry.key)"
+        (click)="editEntry(entryService.foodEntries()[entry.key])"
       >
         <mat-expansion-panel-header>
           <mat-panel-title> {{ entry.key }} </mat-panel-title>
         </mat-expansion-panel-header>
         <edit-entry-form [entry]="currentEditedEntry()"></edit-entry-form>
-        <div class="button-container">
-          <button mat-raised-button color="warn">DELETE ENTRY</button>
-          <button mat-raised-button color="accent">EDIT ENTRY</button>
-        </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
+  <a routerLink="/create-entry"
+    ><button mat-raised-button color="accent">ADD ENTRY</button></a
+  >
   <home-button></home-button>
 </div>
