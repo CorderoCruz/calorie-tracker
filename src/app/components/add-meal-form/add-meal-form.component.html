@@ -1,23 +1,38 @@
 <form [formGroup]="addMealForm">
   <div class="input">
     <mat-form-field>
-      <mat-label>Food</mat-label>
-      <mat-select formControlName="foodName">
+      <mat-label>Entry name</mat-label>
+      <input
+        (input)="changeWeightColumn()"
+        type="text"
+        matInput
+        formControlName="foodName"
+        placeholder="Entry Name"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
         <mat-option
-          *ngFor="let food of entryService.foodEntries() | keyvalue"
-          [value]="entryService.foodEntries()[food.key].name"
-          >{{ entryService.foodEntries()[food.key].name }}</mat-option
-        >
-      </mat-select>
+          *ngFor="let entryName of filteredOptions | async"
+          [value]="entryName"
+          >{{ entryName }}</mat-option
+        ></mat-autocomplete
+      >
+      <mat-error>Please input entry name</mat-error>
     </mat-form-field>
   </div>
   <div class="input">
     <mat-form-field>
-      <mat-label>Grams</mat-label>
-      <input matInput />
+      <mat-label>{{ weight() ? "Count" : "Weight" }}</mat-label>
+      <input matInput formControlName="servingMeasurement" />
+      <mat-error>Please input {{ weight() ? "Count" : "Weight" }}</mat-error>
     </mat-form-field>
   </div>
-  <button mat-flat-button color="accent" (click)="updateMacros()">
+  <button
+    [disabled]="addMealForm.invalid"
+    mat-flat-button
+    color="accent"
+    (click)="updateMacros()"
+  >
     <p>UPDATE MACROS</p>
   </button>
 </form>

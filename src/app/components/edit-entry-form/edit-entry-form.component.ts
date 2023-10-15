@@ -42,7 +42,7 @@ export class EditEntryFormComponent implements OnInit {
       }
     }
 
-    this.entryService.updateEntryToDB(editedEntry);
+    this.entryService.addEntryToDB(editedEntry);
   }
 
   deleteEntry() {

@@ -4,6 +4,7 @@
   height: 190px;
   border-radius: 5px;
   box-shadow: var(--shadow);
+  background-color: white;
 }
 
 h2 {

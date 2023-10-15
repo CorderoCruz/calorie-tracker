@@ -34,4 +34,5 @@ button {
   box-shadow: var(--shadow);
   border-radius: 5px;
   margin-top: 10px;
+  overflow: hidden;
 }

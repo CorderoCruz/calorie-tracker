@@ -1,0 +1,35 @@
+<form [formGroup]="loginForm">
+  <header>
+    <h2>Login</h2>
+  </header>
+  <p class="errors" *ngIf="authService.loginErrors">
+    {{ authService.loginErrors() }}
+  </p>
+  <p></p>
+  <div class="input">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error>Please enter a valid email</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="input">
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" />
+      <mat-error>Please input password</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="input">
+    <p>Remember Me?</p>
+    <mat-checkbox formControlName="rememberMe"></mat-checkbox>
+  </div>
+  <button
+    [disabled]="loginForm.invalid"
+    mat-flat-button
+    color="accent"
+    (click)="login()"
+  >
+    <p>Login</p>
+  </button>
+</form>

@@ -16,28 +16,17 @@ export class AddEntryFormComponent {
 
   addEntryForm: FormGroup = this.fb.group({
     name: ["", [Validators.required]],
-    grams: ["", [Validators.required]],
     calories: ["", [Validators.required]],
     fat: ["", [Validators.required]],
     carbs: ["", [Validators.required]],
     protein: ["", [Validators.required]],
+    servingMeasurement: ["", [Validators.required]],
+    servingSize: ["", []],
   });
 
   addFoodToDB(): void {
-    const { name, grams, calories, fat, carbs, protein } =
-      this.addEntryForm.getRawValue();
-
-    if (!name && !grams && !calories && !fat && !carbs && !protein) {
-      return alert("Not all fields are correct");
-    }
-
     this.outputForm.emit({
-      name,
-      gramsPerServing: parseInt(grams),
-      calories: parseInt(calories),
-      fat: parseInt(fat),
-      carbs: parseInt(carbs),
-      protein: parseInt(protein),
+      ...this.addEntryForm.getRawValue(),
     });
   }
 }

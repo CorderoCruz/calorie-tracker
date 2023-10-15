@@ -21,3 +21,8 @@ button {
   width: 320px;
   color: white;
 }
+
+.item-container {
+  display: flex;
+  flex-direction: column;
+}

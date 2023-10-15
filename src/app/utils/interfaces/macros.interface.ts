@@ -3,4 +3,5 @@ export interface Macros {
   fat: number;
   carbs: number;
   protein: number;
+  date: string;
 }

@@ -6,23 +6,36 @@ import { NotFoundComponent } from "../pages/not-found/not-found.component";
 import { AddMealComponent } from "../pages/add-meal/add-meal.component";
 import { AddEntryComponent } from "../pages/add-entry/add-entry.component";
 import { EditEntriesComponent } from "../pages/edit-entries/edit-entries.component";
+import { AuthComponent } from "../pages/auth/auth.component";
+import { canActivateUser } from "../services/auth/auth.guard";
 
 const routes: Routes = [
   {
     path: "",
-    component: HomeComponent,
+    canActivate: [],
+    children: [
+      {
+        path: "",
+        component: HomeComponent,
+      },
+
+      {
+        path: "add-meal",
+        component: AddMealComponent,
+      },
+      {
+        path: "create-entry",
+        component: AddEntryComponent,
+      },
+      {
+        path: "edit-entries",
+        component: EditEntriesComponent,
+      },
+    ],
   },
   {
-    path: "add-meal",
-    component: AddMealComponent,
-  },
-  {
-    path: "create-entry",
-    component: AddEntryComponent,
-  },
-  {
-    path: "edit-entries",
-    component: EditEntriesComponent,
+    path: "authentication",
+    component: AuthComponent,
   },
   {
     path: "**",

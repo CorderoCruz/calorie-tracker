@@ -1,8 +1,9 @@
 export interface Entry {
   name: string;
-  gramsPerServing: number;
   calories: number;
   fat: number;
   carbs: number;
   protein: number;
+  servingMeasurement: "oz" | "g" | "one";
+  servingSize: number;
 }

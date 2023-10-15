@@ -3,25 +3,61 @@
     <h2>Add Entry</h2>
     <p>** All Entries all per serving size</p>
   </header>
-  <mat-form-field *ngFor="let input of addEntryForm?.controls | keyvalue">
-    <mat-label>{{
-      input.key === "name"
-        ? input.key.charAt(0).toUpperCase() + input.key.slice(1)
-        : input.key.charAt(0).toUpperCase() +
-          input.key.slice(1) +
-          " per serving"
-    }}</mat-label>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="name" />
+    <mat-error>Please input food name</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Calories</mat-label>
+    <input matInput type="number" formControlName="calories" />
+    <mat-error>Please input calories per serving</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Fat</mat-label>
+    <input matInput type="number" formControlName="fat" />
+    <mat-error>Please input fat(s) per serving</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Carbs</mat-label>
+    <input matInput type="number" formControlName="carbs" />
+    <mat-error>Please input carbs per serving</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Protein</mat-label>
+    <input matInput type="number" formControlName="protein" />
+    <mat-error>Please input protein per serving</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Serving measurement</mat-label>
     <input
+      type="text"
       matInput
-      [type]="input.key === 'name' ? 'text' : 'number'"
-      formControlName="{{ input.key }}"
+      formControlName="servingMeasurement"
+      placeholder="Measurement for serving"
+      [matAutocomplete]="auto"
     />
-    <mat-error>Please input {{ input.key }}</mat-error>
+    <mat-autocomplete autoActiveFirstOption #auto>
+      <mat-option
+        *ngFor="let measurement of ['oz', 'g', 'one']"
+        [value]="measurement"
+      >
+        {{ measurement }}</mat-option
+      >
+    </mat-autocomplete>
+    <mat-error>Please input serving measurement</mat-error>
+  </mat-form-field>
+  <mat-form-field
+    *ngIf="addEntryForm.get('servingMeasurement')?.value !== 'one'"
+  >
+    <mat-label>Serving size</mat-label>
+    <input matInput type="number" formControlName="servingSize" />
+    <mat-error>Please input food name</mat-error>
   </mat-form-field>
   <button
     mat-raised-button
     color="accent"
-    [disabled]="addEntryForm.errors"
+    [disabled]="addEntryForm.invalid"
     (click)="addFoodToDB()"
   >
     ADD ENTRY

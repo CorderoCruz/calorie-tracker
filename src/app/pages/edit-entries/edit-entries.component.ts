@@ -1,5 +1,4 @@
 import { Component, inject, signal } from "@angular/core";
-import { Router } from "@angular/router";
 import { Entry } from "@interfaces";
 import { EntryService } from "src/app/services/entry-service/entry-service.service";
 
@@ -10,7 +9,6 @@ import { EntryService } from "src/app/services/entry-service/entry-service.servi
 })
 export class EditEntriesComponent {
   entryService: EntryService = inject(EntryService);
-  router: Router = inject(Router);
 
   currentEditedEntry = signal<Entry>({} as Entry);
 
@@ -22,4 +20,3 @@ export class EditEntriesComponent {
     this.entryService.deleteEntryFromDB(entryName);
   }
 }
-// if entry date is not the same as today, we want to get the entry date cals and update them making the get request from the db;

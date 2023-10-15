@@ -2,78 +2,76 @@ import { Injectable, Signal, computed, inject, signal } from "@angular/core";
 import { Entry, Macros } from "@interfaces";
 import { EntryService } from "../entry-service/entry-service.service";
 import { Utils } from "src/app/utils/utils";
-import {
-  DataSnapshot,
-  Database,
-  DatabaseReference,
-  onValue,
-  ref,
-  set,
-} from "@angular/fire/database";
+import { HttpClient } from "@angular/common/http";
+import { Observable, tap } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class MacroService {
-  private db = inject<Database>(Database);
-  private entryService = inject<EntryService>(EntryService);
+  private readonly url: string = environment["apiUrl"];
+  hasLandedOnPage = signal<boolean>(false);
 
-  public readonly macrosURL: string = "foods/macros-today";
-  public readonly macroRef: DatabaseReference = ref(this.db, this.macrosURL);
+  private http = inject<HttpClient>(HttpClient);
+  private entryService = inject<EntryService>(EntryService);
 
   private calories = signal<number>(0);
   private fat = signal<number>(0);
   private carbs = signal<number>(0);
   private protein = signal<number>(0);
+  private date = signal<string>("");
 
-  public readonly macrosLoading = signal<boolean>(false);
+  public macrosLoading = signal<boolean>(false);
 
   public readonly totalNutrition: Signal<Macros> = computed<Macros>(() => ({
     calories: this.calories(),
     fat: this.fat(),
     carbs: this.carbs(),
     protein: this.protein(),
+    date: this.date(),
   }));
 
-  //get
-  public async getMacros(date: string): Promise<void> {
-    this.macrosLoading.set(true);
-    onValue(this.macroRef, (snapshot: DataSnapshot) => {
-      const macros: Macros = snapshot.val()[date];
-      if (!macros) {
-        alert("Macros do not exist for inputed date");
-        return;
-      }
-      this.calories.set(macros.calories);
-      this.fat.set(macros.fat);
-      this.carbs.set(macros.carbs);
-      this.protein.set(macros.protein);
-    });
-
-    this.macrosLoading.set(false);
+  public getMacrosFromDB(date: string) {
+    return this.http.get(`${this.url}/macros/${date}`).pipe(
+      tap((data: any) => {
+        if (!data?.data) {
+          this.calories.set(0);
+          this.fat.set(0);
+          this.carbs.set(0);
+          this.protein.set(0);
+          return;
+        }
+        const { calories, carbs, protein, fat, date } = data.data;
+        this.calories.set(calories);
+        this.fat.set(fat);
+        this.carbs.set(carbs);
+        this.protein.set(protein);
+        this.date.set(date);
+      })
+    );
   }
 
-  //put
-  public updateMacros(grams: number, foodName: string, date: string): void {
-    const food: Entry = this.entryService.foodEntries()[foodName];
-    const { calories, fat, carbs, protein } = Utils.calculateMacros(
-      grams,
-      food
-    );
+  public updateMacros(weight: number, foodName: string, date: string) {
+    const food: Entry | undefined = this.entryService
+      .foodEntries()
+      .find((entry) => entry.name === foodName);
+    if (!food) {
+      return;
+    }
 
-    this.calories.update((val) => val + calories);
-    this.fat.update((val) => val + fat);
-    this.carbs.update((val) => val + carbs);
-    this.protein.update((val) => val + protein);
-    this.updateMacrosToDB(date);
+    const calculatedMacros: Partial<Macros> =
+      food["servingMeasurement"] === "one"
+        ? Utils.calculateMacros(1, food)
+        : Utils.calculateMacros(weight, food);
+    return this.updateMacrosToDB({
+      ...calculatedMacros,
+      date,
+    } as Macros).subscribe();
   }
 
   // change this into a put instead of a post
-  private async updateMacrosToDB(date: string): Promise<void> {
-    const reference: DatabaseReference = ref(
-      this.db,
-      `${this.macrosURL}/${date}`
-    );
-    set(reference, { ...this.totalNutrition(), date });
+  private updateMacrosToDB(macros: Macros) {
+    return this.http.put(`${this.url}/macros`, macros);
   }
 }

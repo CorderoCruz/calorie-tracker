@@ -8,9 +8,6 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { NutritionFactsTableComponent } from "./components/nutrition-facts-table/nutrition-facts-table.component";
 import { AddMealComponent } from "./pages/add-meal/add-meal.component";
-import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
-import { environment } from "../environments/environment";
-import { provideDatabase, getDatabase } from "@angular/fire/database";
 import { AddEntryComponent } from "./pages/add-entry/add-entry.component";
 import { EditEntryFormComponent } from "./components/edit-entry-form/edit-entry-form.component";
 import { EditEntriesComponent } from "./pages/edit-entries/edit-entries.component";
@@ -25,6 +22,16 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { HomeButtonComponent } from "./components/home-button/home-button.component";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatRippleModule } from "@angular/material/core";
+import { DialogComponent } from "./components/dialog/dialog.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatListModule } from "@angular/material/list";
+import { HttpClientModule } from "@angular/common/http";
+import { AuthComponent } from "./pages/auth/auth.component";
+import { AuthLoginComponent } from "./components/auth.login/auth-login.component";
+import { AuthSignupComponent } from "./components/auth.signup/auth-signup.component";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -39,12 +46,20 @@ import { HomeButtonComponent } from "./components/home-button/home-button.compon
     AddMealFormComponent,
     AddEntryFormComponent,
     HomeButtonComponent,
+    DialogComponent,
+    AuthComponent,
+    AuthLoginComponent,
+    AuthSignupComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatFormFieldModule,
+    MatCheckboxModule,
+    MatRippleModule,
     MatInputModule,
+    MatListModule,
+    MatDialogModule,
     RouterModule,
     ReactiveFormsModule,
     MatDatepickerModule,
@@ -53,9 +68,10 @@ import { HomeButtonComponent } from "./components/home-button/home-button.compon
     FormsModule,
     MatButtonModule,
     MatExpansionModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideDatabase(() => getDatabase()),
+    HttpClientModule,
+    MatAutocompleteModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -3,7 +3,7 @@
 
 :root {
   --shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
-  --main-page-color: rgb(240, 240, 240);
+  --main-page-color: rgb(211, 211, 211);
   --add-color: rgb(159, 221, 159);
 }
 
@@ -15,9 +15,31 @@
   color: black;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00000056 #ffffff00;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #00000047;
+  border-radius: 10px;
+  border: none;
+}
+
 html {
   height: 100vh;
   background-color: var(--main-page-color);
+  overflow-y: scroll;
 }
 
 button {
@@ -95,5 +117,11 @@ a {
   color: black;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
