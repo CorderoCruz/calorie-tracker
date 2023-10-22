@@ -1,6 +1,6 @@
 import { Injectable, Signal, computed, inject, signal } from "@angular/core";
 import { Entry, Macros } from "@interfaces";
-import { EntryService } from "../entry-service/entry-service.service";
+import { EntryService } from "../entry/entry-service.service";
 import { Utils } from "src/app/utils/utils";
 import { HttpClient } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
@@ -33,7 +33,7 @@ export class MacroService {
   }));
 
   public getMacrosFromDB(date: string) {
-    return this.http.get(`${this.url}/macros/${date}`).pipe(
+    return this.http.get(`${this.url}/macros/date`, { params: { date } }).pipe(
       tap((data: any) => {
         if (!data?.data) {
           this.calories.set(0);
@@ -43,6 +43,7 @@ export class MacroService {
           return;
         }
         const { calories, carbs, protein, fat, date } = data.data;
+        console.log(data.data);
         this.calories.set(calories);
         this.fat.set(fat);
         this.carbs.set(carbs);
@@ -67,11 +68,18 @@ export class MacroService {
     return this.updateMacrosToDB({
       ...calculatedMacros,
       date,
-    } as Macros).subscribe();
+    } as Macros);
   }
 
   // change this into a put instead of a post
   private updateMacrosToDB(macros: Macros) {
-    return this.http.put(`${this.url}/macros`, macros);
+    return this.http.put(`${this.url}/macros`, macros).pipe(
+      tap(({ data }: any) => {
+        this.calories.set(data.calories);
+        this.fat.set(data.fat);
+        this.carbs.set(data.carbs);
+        this.protein.set(data.protein);
+      })
+    );
   }
 }

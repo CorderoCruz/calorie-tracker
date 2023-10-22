@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, inject } from "@angular/core";
 import { MacroService } from "./services/macros/macro.service";
-import { EntryService } from "./services/entry-service/entry-service.service";
+import { EntryService } from "./services/entry/entry-service.service";
 import { HttpClient } from "@angular/common/http";
 import { Subscription } from "rxjs";
 

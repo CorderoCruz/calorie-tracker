@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, inject, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { tap } from "rxjs";
-import { Credentials } from "src/app/pages/auth/auth.component";
+import { Credentials } from "src/app/shared/auth/auth.component";
 
 type User = {
   username: string;

@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
-import { HomeComponent } from "../pages/home/home.component";
-import { NotFoundComponent } from "../pages/not-found/not-found.component";
-import { AddMealComponent } from "../pages/add-meal/add-meal.component";
-import { AddEntryComponent } from "../pages/add-entry/add-entry.component";
-import { EditEntriesComponent } from "../pages/edit-entries/edit-entries.component";
-import { AuthComponent } from "../pages/auth/auth.component";
+import { HomeComponent } from "../home/home.component";
+import { NotFoundComponent } from "../not-found/not-found.component";
+import { AddMealComponent } from "../add-meal/add-meal.component";
+import { AddEntryComponent } from "../add-entry/add-entry.component";
+import { EditEntryComponent } from "../edit-entry/edit-entry.component";
+import { AuthComponent } from "../shared/auth/auth.component";
 import { canActivateUser } from "../services/auth/auth.guard";
 
 const routes: Routes = [
@@ -29,7 +29,7 @@ const routes: Routes = [
       },
       {
         path: "edit-entries",
-        component: EditEntriesComponent,
+        component: EditEntryComponent,
       },
     ],
   },
