@@ -1,5 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { Router } from "@angular/router";
+import { NotificationService } from "../notification/notification.service";
 
 @Component({
   selector: "home-button",
@@ -27,6 +28,8 @@ import { Router } from "@angular/router";
 })
 export class HomeButtonComponent {
   router = inject<Router>(Router);
+  notificationService = inject(NotificationService);
+
   navigateHome() {
     return this.router.navigateByUrl("/");
   }

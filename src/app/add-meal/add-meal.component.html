@@ -4,18 +4,8 @@
     <mat-form-field appearance="fill">
       <mat-datepicker></mat-datepicker>
       <mat-label>mm/dd/yyyy</mat-label>
-      <input
-        matInput
-        [matDatepicker]="picker"
-        (focus)="picker.open()"
-        (dateChange)="changeDate($event)"
-        readonly
-      />
-      <mat-datepicker-toggle
-        matIconSuffix
-        [for]="picker"
-        [ariaValueNow]="formatedMacroDate()"
-      ></mat-datepicker-toggle>
+      <input matInput [matDatepicker]="picker" (focus)="picker.open()" (dateChange)="changeDate($event)" readonly />
+      <mat-datepicker-toggle matIconSuffix [for]="picker" [ariaValueNow]="formatedMacroDate()"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </div>
