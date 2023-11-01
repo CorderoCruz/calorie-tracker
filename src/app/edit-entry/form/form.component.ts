@@ -1,7 +1,6 @@
-import { Component, Input, OnDestroy, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Entry } from '@interfaces';
-import { BehaviorSubject, takeUntil } from 'rxjs';
 import { EntryService } from 'src/app/services/entry/entry-service.service';
 import { NotificationService } from 'src/app/shared/components/notification/notification.service';
 

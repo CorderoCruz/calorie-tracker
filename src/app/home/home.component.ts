@@ -1,12 +1,12 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
-interface Buttons {
+interface Button {
   link: string;
   content: string;
 }
 
 @Component({
-  selector: "app-home",
+  selector: 'app-home',
   template: `<div class="button-container">
     <button
       mat-raised-button
@@ -39,9 +39,9 @@ interface Buttons {
   ],
 })
 export class HomeComponent {
-  links: Buttons[] = [
-    { link: "create-entry", content: "create entry" },
-    { link: "add-meal", content: "add meal" },
-    { link: "edit-entries", content: "edit entries" },
+  links: Button[] = [
+    { link: 'create-entry', content: 'create entry' },
+    { link: 'add-meal', content: 'add meal' },
+    { link: 'edit-entries', content: 'edit entries' },
   ];
 }

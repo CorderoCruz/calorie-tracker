@@ -40,8 +40,8 @@ export class MacroService {
 
   public getMacrosFromDB(date: string) {
     return this.http.get<HTTPResponse>(`${this.url}/macros/date`, { params: { date } }).pipe(
-      tap(({ data }) => {
-        if (!data?.data) {
+      tap(({ status, data }) => {
+        if (status !== 200) {
           this.calories.set(0);
           this.fat.set(0);
           this.carbs.set(0);
