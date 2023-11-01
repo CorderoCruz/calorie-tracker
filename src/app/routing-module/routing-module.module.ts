@@ -1,44 +1,36 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { RouterModule, Routes } from "@angular/router";
-import { HomeComponent } from "../home/home.component";
-import { NotFoundComponent } from "../not-found/not-found.component";
-import { AddMealComponent } from "../add-meal/add-meal.component";
-import { AddEntryComponent } from "../add-entry/add-entry.component";
-import { EditEntryComponent } from "../edit-entry/edit-entry.component";
-import { AuthComponent } from "../shared/auth/auth.component";
-import { canActivateUser } from "../services/auth/auth.guard";
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from '../home/home.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
+import { AuthComponent } from '../shared/auth/auth.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     canActivate: [],
     children: [
+      { path: '', component: HomeComponent },
       {
-        path: "",
-        component: HomeComponent,
-      },
-
-      {
-        path: "add-meal",
-        component: AddMealComponent,
+        path: 'add-meal',
+        loadChildren: () => import('../add-meal/add-meal.module').then((m) => m.AddMealModule),
       },
       {
-        path: "create-entry",
-        component: AddEntryComponent,
+        path: 'create-entry',
+        loadChildren: () => import('../add-entry/add-entry.module').then((m) => m.AddEntryModule),
       },
       {
-        path: "edit-entries",
-        component: EditEntryComponent,
+        path: 'edit-entries',
+        loadChildren: () => import('../edit-entry/edit-entry.module').then((m) => m.EditEntryModule),
       },
     ],
   },
   {
-    path: "authentication",
+    path: 'authentication',
     component: AuthComponent,
   },
   {
-    path: "**",
+    path: '**',
     component: NotFoundComponent,
   },
 ];
