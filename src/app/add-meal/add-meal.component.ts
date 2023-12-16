@@ -1,5 +1,4 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { EntryService } from 'src/app/services/entry/entry-service.service';
 import { MacroService } from 'src/app/services/macros/macro.service';
 import { Utils } from 'src/app/utils/utils';
 import { NotificationService } from '../shared/components/notification/notification.service';

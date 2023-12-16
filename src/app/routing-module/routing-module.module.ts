@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { AuthComponent } from '../shared/auth/auth.component';
+import { AddWeightComponent } from '../add-weight/add-weight.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'edit-entries',
         loadChildren: () => import('../edit-entry/edit-entry.module').then((m) => m.EditEntryModule),
+      },
+      {
+        path: 'add-weight',
+        component: AddWeightComponent,
       },
     ],
   },

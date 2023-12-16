@@ -1,0 +1,22 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 320px;
+}
+
+header {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-left: 5px;
+}
+
+button {
+  border: none;
+  font-weight: bolder;
+  background-color: var(--add-color);
+  border-radius: 5px;
+}

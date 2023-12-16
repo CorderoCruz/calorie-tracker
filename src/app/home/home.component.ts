@@ -43,5 +43,6 @@ export class HomeComponent {
     { link: 'create-entry', content: 'create entry' },
     { link: 'add-meal', content: 'add meal' },
     { link: 'edit-entries', content: 'edit entries' },
+    { link: 'add-weight', content: 'add weight' },
   ];
 }
