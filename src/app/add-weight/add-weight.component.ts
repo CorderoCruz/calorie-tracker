@@ -13,9 +13,12 @@ import { Observable } from 'rxjs';
   template: ` <div class="add-weight-container">
     <add-weight-form (weightEmitter)="addWeight($event)"></add-weight-form>
     <div class="weight-container">
-      <p *ngFor="let weight of weightService.displayWeights()">
-        {{ weight.weight }}
-      </p>
+      <div *ngFor="let weight of weightService.displayWeights()">
+        <p>
+          {{ weight.weight }}
+        </p>
+        <p>{{ weight.date }}</p>
+      </div>
     </div>
   </div>`,
 })
