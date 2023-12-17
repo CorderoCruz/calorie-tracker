@@ -1,0 +1,12 @@
+<div class="add-weight-container">
+  <add-weight-form (weightEmitter)="addWeight($event)"></add-weight-form>
+  <div class="weight-container">
+    @for (weight of weightService.weights(); track $index) {
+    <div class="weight">
+      <p>
+        <b>{{ weight.date }}: </b> {{ weight.weight }} lbs
+      </p>
+    </div>
+    }
+  </div>
+</div>

@@ -1,28 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AddWeightFormComponent } from './form/add-weight-form.component';
-import { Utils } from '../utils/utils';
-import { WeightService } from '../services/weight/weight.service';
-import { AsyncPipe, JsonPipe, NgFor } from '@angular/common';
 import { Observable } from 'rxjs';
+import { WeightService } from '../services/weight/weight.service';
+import { Utils } from '../utils/utils';
+import { AddWeightFormComponent } from './form/add-weight-form.component';
 
 @Component({
   selector: `add-weight`,
   standalone: true,
-  imports: [AddWeightFormComponent, AsyncPipe, JsonPipe, NgFor],
+  imports: [AddWeightFormComponent],
   styleUrls: [`./add-weight.component.css`],
-  template: ` <div class="add-weight-container">
-    <add-weight-form (weightEmitter)="addWeight($event)"></add-weight-form>
-    <div class="weight-container">
-      @for (weight of weightService.displayWeights(); track $index) {
-      <div>
-        <p>
-          {{ weight.weight }}
-        </p>
-        <p>{{ weight.date }}</p>
-      </div>
-      }
-    </div>
-  </div>`,
+  templateUrl: `./add-weight.component.html`,
 })
 export class AddWeightComponent implements OnInit {
   public weightService = inject<WeightService>(WeightService);

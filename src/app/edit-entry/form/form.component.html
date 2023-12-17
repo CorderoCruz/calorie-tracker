@@ -1,28 +1,25 @@
 <form [formGroup]="editEntryForm">
   <mat-form-field *ngFor="let input of editEntryForm?.controls | keyvalue">
-    <ng-container *ngIf="input.key !== 'servingMeasurement'; else servingMeasurement">
-      <mat-label>{{
-        input.key === 'gramsPerServing'
-          ? 'Grams per serving'
-          : input.key.charAt(0).toUpperCase() + input.key.slice(1) + (input.key === 'name' ? '' : ' per serving')
-      }}</mat-label>
-      <input [type]="input.key === 'name' ? 'text' : 'number'" matInput formControlName="{{ input.key }}" />
-      <label>{{ input.key === 'name' ? entry[input.key] : 'Current value: ' + entry[input.key] }}</label>
-    </ng-container>
-    <ng-template #servingMeasurement>
-      <mat-label>Serving measurement</mat-label>
-      <input
-        type="text"
-        matInput
-        formControlName="servingMeasurement"
-        placeholder="Measurement for serving"
-        [matAutocomplete]="auto"
-      />
-      <mat-autocomplete autoActiveFirstOption #auto>
-        <mat-option *ngFor="let measurement of ['oz', 'g', 'one']" [value]="measurement"> {{ measurement }}</mat-option>
-      </mat-autocomplete>
-      <label>Current value: {{ entry[input.key] }}</label>
-    </ng-template>
+    @if(input.key !== 'servingMeasurement') {
+    <mat-label>{{
+      input.key === 'gramsPerServing'
+        ? 'Grams per serving'
+        : input.key.charAt(0).toUpperCase() + input.key.slice(1) + (input.key === 'name' ? '' : ' per serving')
+    }}</mat-label>
+    } @else {
+    <mat-label>Serving measurement</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="servingMeasurement"
+      placeholder="Measurement for serving"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete autoActiveFirstOption #auto>
+      <mat-option *ngFor="let measurement of ['oz', 'g', 'one']" [value]="measurement"> {{ measurement }}</mat-option>
+    </mat-autocomplete>
+    <label>Current value: {{ entry[input.key] }}</label>
+    }
   </mat-form-field>
   <div class="button-container">
     <button mat-raised-button color="warn" (click)="deleteEntry()">DELETE ENTRY</button>
