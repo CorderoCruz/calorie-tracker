@@ -1,12 +1,27 @@
 <div class="add-weight-container">
   <add-weight-form (weightEmitter)="addWeight($event)"></add-weight-form>
   <div class="weight-container">
-    @for (weight of weightService.weights(); track $index) {
+    @for (weight of weightService.weights().reverse(); track $index) {
     <div class="weight">
       <p>
         <b>{{ weight.date }}: </b> {{ weight.weight }} lbs
       </p>
     </div>
+    }
+  </div>
+
+  <div class="difference-container">
+    <div class="stat">
+      <p><b>Your average weight for this week</b></p>
+      <p>{{ weightService.stats().average }} lbs</p>
+    </div>
+    <div class="stat">
+      <p><b>Your weight difference for the week</b></p>
+      <p>{{ weightService.stats().difference }} lbs</p>
+    </div>
+
+    @if (weightService.stats().difference > 0) {
+    <h2 style="text-align: center"><b>Gotta do more!</b></h2>
     }
   </div>
 </div>

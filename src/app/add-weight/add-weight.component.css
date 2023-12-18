@@ -7,9 +7,32 @@
   gap: 20px;
 }
 
+.weight-container {
+  display: grid;
+  gap: 1rem;
+}
+
 .weight {
   width: 320px;
   border-radius: 2px;
   padding: 1rem;
   box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 1), 0 0px 0px 0 rgba(0, 0, 0, 1), 0 0px 0px 0 rgba(0, 0, 0, 1);
+}
+
+.difference-container {
+  display: grid;
+  gap: 1rem;
+}
+
+.stat {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.stat p {
+  text-align: center;
+}
+
+.stat p:first-child {
+  border-bottom: 3px solid black;
 }

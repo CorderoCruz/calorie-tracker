@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { Injectable, Signal, computed, inject, signal } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -11,7 +11,20 @@ export class WeightService {
 
   public weights = signal<{ date: string; weight: number }[]>([]);
 
-  public displayWeights = computed(() => [...this.weights()]);
+  public stats: Signal<{ difference: number; average: number }> = computed(() => {
+    // we want to get the weight of the first weigh in of the week and the last
+    const firstWeighIn: number = this.weights()[0].weight;
+    const lastWeighIn: number = this.weights()[this.weights().length - 1].weight;
+    // we want the average of the weigh ins from adding all weigh ins and dividing it by the number of weigh ins in the week
+    const averageStat = this.weights()
+      .map((weighIns) => weighIns.weight)
+      .reduce((acc, curr) => (acc += curr));
+
+    return {
+      difference: Math.round(100 * (firstWeighIn - lastWeighIn)) / 100,
+      average: averageStat / this.weights().length,
+    };
+  });
 
   public getWeight(): Observable<unknown> {
     const limit = new Date().getDay();
