@@ -1,12 +1,29 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { EntryService } from 'src/app/services/entry/entry-service.service';
 import { NotificationService } from 'src/app/shared/components/notification/notification.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { NgFor, NgIf } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'add-entry-form',
-  templateUrl: './add-entry-form.component.html',
-  styleUrls: ['./add-entry-form.component.css'],
+    selector: 'add-entry-form',
+    templateUrl: './add-entry-form.component.html',
+    styleUrls: ['./add-entry-form.component.css'],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        NgFor,
+        MatOptionModule,
+        NgIf,
+        MatButtonModule,
+    ],
 })
 export class AddEntryFormComponent {
   private entryService = inject<EntryService>(EntryService);

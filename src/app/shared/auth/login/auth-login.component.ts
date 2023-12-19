@@ -1,12 +1,26 @@
 import { Component, EventEmitter, OnInit, Output, inject } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { Credentials } from "src/app/shared/auth/auth.component";
 import { AuthService } from "src/app/services/auth/auth.service";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { NgIf } from "@angular/common";
 
 @Component({
-  selector: "app-auth-login",
-  templateUrl: "./auth-login.component.html",
-  styleUrls: ["./auth-login.component.css"],
+    selector: "app-auth-login",
+    templateUrl: "./auth-login.component.html",
+    styleUrls: ["./auth-login.component.css"],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        NgIf,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule,
+    ],
 })
 export class AuthLoginComponent implements OnInit {
   @Output("credentials") crendentials = new EventEmitter<Credentials>();

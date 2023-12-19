@@ -1,13 +1,30 @@
 import { Component, Input, inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Entry } from '@interfaces';
 import { EntryService } from 'src/app/services/entry/entry-service.service';
 import { NotificationService } from 'src/app/shared/components/notification/notification.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgFor, KeyValuePipe } from '@angular/common';
 
 @Component({
-  selector: 'edit-entry-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css'],
+    selector: 'edit-entry-form',
+    templateUrl: './form.component.html',
+    styleUrls: ['./form.component.css'],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        NgFor,
+        MatFormFieldModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        MatOptionModule,
+        MatButtonModule,
+        KeyValuePipe,
+    ],
 })
 export class EditEntryFormComponent {
   @Input('entry') entry: Entry;

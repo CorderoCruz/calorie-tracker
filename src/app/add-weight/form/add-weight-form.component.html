@@ -1,11 +1,14 @@
 <form [formGroup]="addWeightForm">
   <header>
-    <h2>Add weight</h2>
+    <h2>Add weight for</h2>
+    <h3>{{ todaysDate }}</h3>
   </header>
   <mat-form-field>
     <mat-label>Weight</mat-label>
     <input matInput type="number" formControlName="weight" />
     <mat-error>Please input protein per serving</mat-error>
   </mat-form-field>
-  <button mat-raised-button color="accent" [disabled]="addWeightForm.invalid" (click)="addWeight()">ADD ENTRY</button>
+  <button mat-raised-button color="accent" [disabled]="addWeightForm.invalid" (click)="addWeight()">
+    ADD WEIGHT for {{ todaysDate }}
+  </button>
 </form>

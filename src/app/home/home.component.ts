@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { NgFor, UpperCasePipe } from '@angular/common';
 
 interface Button {
   link: string;
@@ -7,14 +10,11 @@ interface Button {
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   template: `<div class="button-container">
-    <button
-      mat-raised-button
-      color="primary"
-      *ngFor="let link of links"
-      [routerLink]="link.link"
-      [innerHTML]="link.content | uppercase"
-    ></button>
+    @for(link of links; track $index) {
+    <button mat-raised-button color="primary" [routerLink]="link.link">{{ link.content | uppercase }}</button>
+    }
   </div>`,
   styles: [
     `
@@ -37,6 +37,7 @@ interface Button {
       }
     `,
   ],
+  imports: [MatButtonModule, RouterLink, UpperCasePipe],
 })
 export class HomeComponent {
   links: Button[] = [

@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
+import { HomeButtonComponent } from '../shared/components/home-button/home-button.component';
+import { AddEntryFormComponent } from './add-entry-form/add-entry-form.component';
 
 @Component({
-  selector: 'app-add-food',
-  template: ` <div class="create-entry-container">
+    selector: 'app-add-food',
+    template: ` <div class="create-entry-container">
     <add-entry-form></add-entry-form>
     <home-button></home-button>
   </div>`,
-  styles: [
-    `
+    styles: [
+        `
       .create-entry-container {
         padding: 10%;
         display: flex;
@@ -17,6 +19,8 @@ import { Component } from '@angular/core';
         gap: 20px;
       }
     `,
-  ],
+    ],
+    standalone: true,
+    imports: [AddEntryFormComponent, HomeButtonComponent],
 })
 export class AddEntryComponent {}

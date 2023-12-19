@@ -6,16 +6,33 @@ import {
   inject,
   signal,
 } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { Observable, map, startWith } from "rxjs";
 import { EntryService } from "src/app/services/entry/entry-service.service";
 import { MacroService } from "src/app/services/macros/macro.service";
 import { MatDialog } from "@angular/material/dialog";
+import { MatButtonModule } from "@angular/material/button";
+import { MatOptionModule } from "@angular/material/core";
+import { NgFor, AsyncPipe } from "@angular/common";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @Component({
-  selector: "add-meal-form",
-  templateUrl: "./form.component.html",
-  styleUrls: ["./form.component.css"],
+    selector: "add-meal-form",
+    templateUrl: "./form.component.html",
+    styleUrls: ["./form.component.css"],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        NgFor,
+        MatOptionModule,
+        MatButtonModule,
+        AsyncPipe,
+    ],
 })
 export class AddMealFormComponent implements OnInit {
   @Output("outputNameAndGrams") outputNameAndGrams = new EventEmitter<{

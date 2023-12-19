@@ -1,10 +1,11 @@
 import { Component, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { NotificationService } from "../notification/notification.service";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-  selector: "home-button",
-  template: `
+    selector: "home-button",
+    template: `
     <button
       (click)="navigateHome()"
       mat-raised-button
@@ -14,8 +15,8 @@ import { NotificationService } from "../notification/notification.service";
       <p>HOME</p>
     </button>
   `,
-  styles: [
-    `
+    styles: [
+        `
       button {
         width: 320px;
       }
@@ -24,7 +25,9 @@ import { NotificationService } from "../notification/notification.service";
         color: white;
       }
     `,
-  ],
+    ],
+    standalone: true,
+    imports: [MatButtonModule],
 })
 export class HomeButtonComponent {
   router = inject<Router>(Router);

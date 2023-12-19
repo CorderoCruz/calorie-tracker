@@ -2,11 +2,26 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { MacroService } from 'src/app/services/macros/macro.service';
 import { Utils } from 'src/app/utils/utils';
 import { NotificationService } from '../shared/components/notification/notification.service';
+import { HomeButtonComponent } from '../shared/components/home-button/home-button.component';
+import { NutritionFactsTableComponent } from '../shared/components/nutrition-facts-table/nutrition-facts-table.component';
+import { AddMealFormComponent } from './form/form.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-calorie-input',
-  templateUrl: './add-meal.component.html',
-  styleUrls: ['./add-meal.component.css'],
+    selector: 'app-calorie-input',
+    templateUrl: './add-meal.component.html',
+    styleUrls: ['./add-meal.component.css'],
+    standalone: true,
+    imports: [
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatInputModule,
+        AddMealFormComponent,
+        NutritionFactsTableComponent,
+        HomeButtonComponent,
+    ],
 })
 export class AddMealComponent implements OnInit {
   private macroService = inject<MacroService>(MacroService);

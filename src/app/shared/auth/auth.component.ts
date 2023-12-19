@@ -1,6 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, inject, signal } from "@angular/core";
 import { AuthService } from "src/app/services/auth/auth.service";
+import { AuthSignupComponent } from "./signup/auth-signup.component";
+import { AuthLoginComponent } from "./login/auth-login.component";
+import { NgIf } from "@angular/common";
 
 export type Credentials = {
   email: string;
@@ -10,8 +13,8 @@ export type Credentials = {
 };
 
 @Component({
-  selector: "app-auth",
-  template: `
+    selector: "app-auth",
+    template: `
     <div class="container" *ngIf="authState() as state">
       <app-auth-login
         *ngIf="state === 'login'"
@@ -23,8 +26,8 @@ export type Credentials = {
       ></app-auth-signup>
     </div>
   `,
-  styles: [
-    `
+    styles: [
+        `
       .container {
         padding: 10%;
         display: flex;
@@ -34,7 +37,13 @@ export type Credentials = {
         gap: 20px;
       }
     `,
-  ],
+    ],
+    standalone: true,
+    imports: [
+        NgIf,
+        AuthLoginComponent,
+        AuthSignupComponent,
+    ],
 })
 export class AuthComponent {
   http = inject<HttpClient>(HttpClient);

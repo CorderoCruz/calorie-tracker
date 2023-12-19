@@ -22,7 +22,5 @@ export class AddWeightComponent implements OnInit {
     this.weightService.addWeight(date, event).subscribe();
   }
 
-  ngOnInit(): void {
-    this.weightService.getWeight().subscribe();
-  }
+  ngOnInit(): void {}
 }

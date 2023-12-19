@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, computed, inject, signal } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -12,11 +12,19 @@ export class WeightService {
   public weights = signal<{ date: string; weight: number }[]>([]);
 
   public stats: Signal<{ difference: number; average: number }> = computed(() => {
-    // we want to get the weight of the first weigh in of the week and the last
-    const firstWeighIn: number = this.weights()[0].weight;
-    const lastWeighIn: number = this.weights()[this.weights().length - 1].weight;
-    // we want the average of the weigh ins from adding all weigh ins and dividing it by the number of weigh ins in the week
-    const averageStat = this.weights()
+    const firstWeighIn: number = this.weights()[0]?.weight;
+
+    let index: number = 0;
+
+    const length: number = this.weights().length;
+    let lastWeighIn: number = this.weights()[index].weight;
+
+    if (length > 1) {
+      index = length;
+      lastWeighIn = this.weights()[length].weight;
+    }
+
+    const averageStat: number = this.weights()
       .map((weighIns) => weighIns.weight)
       .reduce((acc, curr) => (acc += curr));
 
@@ -31,6 +39,10 @@ export class WeightService {
     return this.httpClient.get(`${this.url}/weight`, { headers: { limit: JSON.stringify(limit) } }).pipe(
       tap((weight) => {
         this.weights.set(weight as { date: string; weight: number }[]);
+      }),
+      catchError((e) => {
+        alert('Something went wrong, could not load data');
+        return of(JSON.stringify(e));
       })
     );
   }
@@ -53,6 +65,10 @@ export class WeightService {
         error: (err) => {
           alert(err.message);
         },
+      }),
+      catchError((e) => {
+        alert('Something went wrong, could not load data');
+        return of(JSON.stringify(e));
       })
     );
   }

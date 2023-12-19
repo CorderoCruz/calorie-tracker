@@ -1,27 +1,33 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { MacroService } from './services/macros/macro.service';
-import { EntryService } from './services/entry/entry-service.service';
-import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { EntryService } from './services/entry/entry-service.service';
+import { WeightService } from './services/weight/weight.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: true,
+    imports: [RouterOutlet],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  entryService: EntryService = inject(EntryService);
-  macroService: MacroService = inject(MacroService);
-  httpService: HttpClient = inject(HttpClient);
-
-  subscription: Subscription;
+  private entryService: EntryService = inject(EntryService);
+  private weightService = inject<WeightService>(WeightService);
+  private entrySubscription: Subscription;
+  private weightSubscription: Subscription;
 
   ngOnInit() {
     if (this.entryService.foodEntries().length === 0) {
-      this.subscription = this.entryService.getEntriesFromDB().subscribe();
+      this.entrySubscription = this.entryService.getEntriesFromDB().subscribe();
+    }
+
+    if (this.weightService.weights().length === 0) {
+      this.weightSubscription = this.weightService.getWeight().subscribe();
     }
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.weightSubscription.unsubscribe();
+    this.entrySubscription.unsubscribe();
   }
 }
